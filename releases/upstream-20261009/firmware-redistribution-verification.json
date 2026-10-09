@@ -1,0 +1,10 @@
+{
+  "status": "PASS: exact unmodified bytes under MediaTek binary redistribution grant",
+  "firmware": {
+    "mt7603_e1.bin": "e1d9cabeeb7d1539ea94665f3e7527968166552e9fc28171e0af7dbaa34ac3a5",
+    "mt7603_e2.bin": "1710d02af192d2a274459c76d15d180d84c44bc7811e7e6f3c271245a8bbe5c9",
+    "mediatek/mt7663_n9_rebb.bin": "6bbc60c5c10aed1e53a2f2b0edd7c3b2a517f0cd9be5b3ed2bd66c2587b908ab",
+    "mediatek/mt7663pr2h_rebb.bin": "05908e076750abdab4a504a440a5826e467cefa8c2519d229d9d92f7093bc7c4"
+  },
+  "license_companion": "LICENSE-NOTICES.tar.gz"
+}

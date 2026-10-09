@@ -1,0 +1,12 @@
+[
+  {
+    "profile": "upstream",
+    "image_sha256": "68cf16cc2f2973523307c1a653b2f3cba4ea70d8577b7fcdbc0d98b22c10ca0f",
+    "manifest_passed": true,
+    "files_inspected": 649,
+    "embedded_private_key_personal_path_or_authorized_key": false,
+    "firmware_license_separately_verified": true,
+    "device_specific_dump_or_calibration": "not included by source/profile; device runtime calibration is external",
+    "hardware_tested": false
+  }
+]

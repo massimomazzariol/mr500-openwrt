@@ -1,0 +1,28 @@
+{
+  "source_sha256": "49eb44918dd7b6ea29b19ae60dd05d0c8e76b8ed3feda2797dc057221ba97118",
+  "binary_sha256": "a065fba0c994734a3197988a7ad8f3e19d8661958beafebda7a855bd8c0deb88",
+  "bytes": 59080,
+  "command": [
+    "$CC",
+    "-std=c99",
+    "-Os",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-march=mips32r2",
+    "-mabi=32",
+    "-msoft-float",
+    "-static",
+    "-s",
+    "-Wl,-z,noexecstack",
+    "-ffile-prefix-map=.=.",
+    "mr500-diagnostic.c",
+    "-o",
+    "mr500-diagnostic-mips-static"
+  ],
+  "libc": "musl 1.2.6 (MIT), statically linked",
+  "libgcc": "GCC 14.4.0, GCC Runtime Library Exception 3.1",
+  "architecture": "ELF32 MIPS little endian o32 MIPS32r2 soft float",
+  "proprietary_code": false,
+  "hardware_tested": false
+}

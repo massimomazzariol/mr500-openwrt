@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.o
+/source-work/
+/build-work/
+# The audited read-only diagnostic is deliberately tracked; firmware is release-only.
+*.tar.gz
+*.tar.xz
+*.bin

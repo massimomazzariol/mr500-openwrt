@@ -1,0 +1,110 @@
+diff --git a/target/linux/ramips/dts/mt7621_tplink_mr500-v1-eu.dts b/target/linux/ramips/dts/mt7621_tplink_mr500-v1-eu.dts
+index b18e6904a9..4bc82d3a83 100644
+--- a/target/linux/ramips/dts/mt7621_tplink_mr500-v1-eu.dts
++++ b/target/linux/ramips/dts/mt7621_tplink_mr500-v1-eu.dts
+@@ -109,7 +109,18 @@
+ 				compatible = "openwrt,uimage";
+ 				openwrt,offset = <512>; /* account for the 512-byte long header */
+ 				label = "firmware";
+-				reg = <0x20000 0xfa0000>;
++				reg = <0x20000 0xf80000>;
++			};
++
++			partition@fa0000 {
++				label = "dualconfig";
++				reg = <0xfa0000 0x10000>;
++				read-only;
++			};
++			partition@fb0000 {
++				label = "ispconfig";
++				reg = <0xfb0000 0x10000>;
++				read-only;
+ 			};
+ 
+ 			partition@fc0000 {
+@@ -151,6 +162,7 @@
+ 			partition@fe0000 {
+ 				label = "filler";
+ 				reg = <0xfe0000 0x10000>;
++				read-only;
+ 			};
+ 
+ 			partition@ff0000 {
+diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
+index 6d4ff1e25d..f2353a5ae9 100644
+--- a/target/linux/ramips/image/mt7621.mk
++++ b/target/linux/ramips/image/mt7621.mk
+@@ -3239,18 +3239,20 @@ TARGET_DEVICES += tplink_mr600-v2-eu
+ define Device/tplink_mr500-v1-eu
+   $(Device/dsa-migration)
+   $(Device/tplink-v2)
++  DEVICE_COMPAT_VERSION := 2.0
++  DEVICE_COMPAT_MESSAGE := Protected configuration layout requires matching MR500 2.x images
+   DEVICE_MODEL := MR500
+   DEVICE_VARIANT := v1 (EU)
+-  TPLINK_FLASHLAYOUT := 16Mltq
++  TPLINK_FLASHLAYOUT := 16Mmr500safe
+   DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7663-firmware-ap \
+ 	kmod-usb3 kmod-usb-net-rndis kmod-usb-net-cdc-ncm \
+ 	kmod-usb-serial-option -uboot-envtools
+-  IMAGE/factory.bin := tplink-v2-image -e -a 0x10000
++  IMAGE/factory.bin := tplink-v2-image -e -a 0x10000 | check-size
+   IMAGE/sysupgrade.bin := tplink-v2-image -s -e -a 0x10000 | check-size | \
+-	append-metadata
++	append-metadata | check-size
+   KERNEL := $(KERNEL_DTB) | uImage lzma
+   KERNEL_INITRAMFS := $$(KERNEL) | tplink-v2-header
+-  IMAGE_SIZE := 16384k
++  IMAGE_SIZE := 15872k
+ endef
+ TARGET_DEVICES += tplink_mr500-v1-eu
+ 
+diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version b/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
+index af9dc9a815..b31e0e3c1c 100644
+--- a/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
++++ b/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
+@@ -8,6 +8,9 @@
+ board_config_update
+ 
+ case "$(board_name)" in
++	tplink,mr500-v1-eu)
++		ucidef_set_compat_version "2.0"
++		;;
+ 	ubnt,edgerouter-x|\
+ 	ubnt,edgerouter-x-sfp|\
+ 	ubnt,unifi-6-lite|\
+diff --git a/tools/firmware-utils/patches/950-mr500-safe-layout.patch b/tools/firmware-utils/patches/950-mr500-safe-layout.patch
+new file mode 100644
+--- /dev/null
++++ b/tools/firmware-utils/patches/950-mr500-safe-layout.patch
+@@ -0,0 +1,30 @@
++--- a/src/mktplinkfw2.c
+++++ b/src/mktplinkfw2.c
++@@ -136,6 +136,12 @@
++ 		.fw_max_len	= 0x7a0000,
++ 		.kernel_la	= 0x80002000,
++ 		.kernel_ep	= 0x80002000,
+++		.rootfs_ofs	= 0x140000,
+++	}, {
+++		.id		= "16Mmr500safe",
+++		.fw_max_len	= 0xf80000,
+++		.kernel_la	= 0x80002000,
+++		.kernel_ep	= 0x800061b0,
++ 		.rootfs_ofs	= 0x140000,
++ 	}, {
++ 		.id		= "16Mltq",
++@@ -347,6 +353,14 @@
++ 		}
++ 	}
++ 
+++	/* Board-specific conservative space for alignment and both EOF markers. */
+++	if (!combined && !strcmp(layout->id, "16Mmr500safe") &&
+++	    (rootfs_ofs > layout->fw_max_len - 0x10004 ||
+++	     rootfs_info.file_size > layout->fw_max_len - 0x10004 - rootfs_ofs)) {
+++		ERR("MR500 safe layout: aligned rootfs/EOF exceed reserved capacity");
+++		return -1;
+++	}
+++
++ 	if (ofname == NULL) {
++ 		ERR("no output file specified");
++ 		return -1;

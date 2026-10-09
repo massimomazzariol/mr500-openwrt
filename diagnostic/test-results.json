@@ -1,0 +1,39 @@
+{
+  "cases": 5,
+  "tests": [
+    {
+      "stock_library_prefix": "110",
+      "mode": "fixture",
+      "status": "PASS",
+      "report_sha256": "ad647c901b29eb56751b5e936b6b22fbdb23c30be7e08c98210a4e7f5df2f9aa",
+      "host_kernel_not_stock_kernel": true,
+      "no_device_open_or_destructive_syscall": true
+    },
+    {
+      "stock_library_prefix": "110",
+      "mode": "user-mode-host-observations",
+      "status": "PASS",
+      "report_sha256": "d918513a5ce91000b07d8339697a2b3ec2b58f6597ff7cbc644116ba3491f78e",
+      "host_kernel_not_stock_kernel": true,
+      "no_device_open_or_destructive_syscall": true
+    },
+    {
+      "stock_library_prefix": "111",
+      "mode": "fixture",
+      "status": "PASS",
+      "report_sha256": "226aba0634591615ea7f05ad19a2578c28ddd128a4a2c85e21a6c0672eb2ac7c",
+      "host_kernel_not_stock_kernel": true,
+      "no_device_open_or_destructive_syscall": true
+    },
+    {
+      "stock_library_prefix": "111",
+      "mode": "user-mode-host-observations",
+      "status": "PASS",
+      "report_sha256": "e6b6ce43de0b483cf036d9f797e698406ccc464fd604f87c704bad341a5c9b16",
+      "host_kernel_not_stock_kernel": true,
+      "no_device_open_or_destructive_syscall": true
+    }
+  ],
+  "hardware": "PENDING",
+  "reports_not_published": "Host/live observations may identify devices or host systems; only sanitized test receipts are public"
+}
