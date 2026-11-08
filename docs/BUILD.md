@@ -8,10 +8,10 @@ python3 scripts/build.py --tree /absolute/new-build/openwrt --preflight-only
 python3 scripts/build.py --tree /absolute/new-build/openwrt --jobs 2
 ```
 
-Add optional profiles with `--with`, once per profile:
+The UPSTREAM seed includes LuCI with HTTPS, as in official release images. Add optional profiles with `--with`, once per profile:
 
 ```sh
-python3 scripts/prepare_source.py /absolute/new-build --with luci --with relayd-fixes
+python3 scripts/prepare_source.py /absolute/new-build --with relayd-fixes
 ```
 
 Preparation clones OpenWrt at tag `v25.12.6` and checks that it resolves to the locked commit and version. It fetches the feeds pinned in `feeds.conf` and checks every feed commit. It applies `patches/upstream/*.patch`, then writes `.config` from `profiles/upstream/seed.config` plus the `seed.config` of each selected profile. A profile with `package-patches.json` copies hash-checked patches into that package, and stops if the package source version differs from the one the patches were written for. The output directory must be new. Nothing is compiled, and no device is accessed.

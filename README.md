@@ -18,14 +18,23 @@ This branch targets the stable release **OpenWrt v25.12.6** (`64900e756e`, `r333
 
 The first experimental release (`experimental-upstream-20261009`) was built on an OpenWrt `main` snapshot (`bb6df54d9d`, `r36880`, Linux 6.18). That code is preserved unchanged on the `archive/snapshot-r36880` branch and the `archive-snapshot-r36880` tag. Its build metadata stays in `releases/upstream-20261009/` as history. No v25.12.6 image has been built or published yet.
 
+## Package set
+
+UPSTREAM follows the official OpenWrt v25.12.6 release images for ramips/mt7621: the target default packages, the MR500 device packages, and the LuCI web interface with HTTPS (`luci` and `luci-ssl`, which pull `luci-light`, `luci-app-firewall`, `luci-app-package-manager`, `uhttpd` and `px5g-mbedtls`). The official MR600 v2 EU image, the template of this device, has a 8,323,635-byte sysupgrade with this set; the MR500 limit is 16,252,928 bytes.
+
+Differences from the official images:
+
+- No attended sysupgrade (`luci-app-attendedsysupgrade`, `owut`): the official upgrade server does not know this device, so it cannot build images for it.
+- Packages are signed with a key generated on the build host. The image also trusts the official 25.12 key (`openwrt-keyring`), so userspace packages from `downloads.openwrt.org/releases/25.12.6` install with `apk`. Kernel modules must come from the same build, because the kernel differs from the official one.
+- Buildbot-only outputs (all kmods, SDK, ImageBuilder, debug info) are not built.
+
 ## Optional profiles
 
 Optional profiles add to the UPSTREAM seed configuration. Select them with `scripts/prepare_source.py --with NAME`:
 
 | Profile | Adds |
 |---|---|
-| `luci` | The LuCI web interface (`luci`: `luci-light` and `luci-app-package-manager`), as in official release images |
-| `relayd-fixes` | `relayd` with two package patches for Wi-Fi client relay bridges: directed ARP host-expiry probes ([openwrt/relayd#2](https://github.com/openwrt/relayd/pull/2)) and DHCP replies unicast to the client `chaddr` ([openwrt/relayd#1](https://github.com/openwrt/relayd/pull/1)). See [openwrt/openwrt#24446](https://github.com/openwrt/openwrt/issues/24446) |
+| `relayd-fixes` | `relayd` and its LuCI protocol `luci-proto-relay` ("Relay bridge"), with two package patches for Wi-Fi client relay bridges: directed ARP host-expiry probes ([openwrt/relayd#2](https://github.com/openwrt/relayd/pull/2)) and DHCP replies unicast to the client `chaddr` ([openwrt/relayd#1](https://github.com/openwrt/relayd/pull/1)). See [openwrt/openwrt#24446](https://github.com/openwrt/openwrt/issues/24446) |
 
 The relayd patches are not merged upstream yet. They apply only to relayd `708a76fa`, the version that v25.12.6 ships, and preparation stops if the package source differs. The image-size gate (`check-size`, 15,872 KiB) still applies to every combination.
 

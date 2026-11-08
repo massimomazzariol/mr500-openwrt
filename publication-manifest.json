@@ -71,8 +71,8 @@
     },
     {
       "path": "docs/BUILD.md",
-      "sha256": "b7dc8448bd51208832b7a63f740ffb61af255605cb40c0698181e4329d2bdcbd",
-      "bytes": 2838,
+      "sha256": "0c86e7d2410baef47163404fa4dd2be3920e7308beaf39afcd9c5694f67ec8a8",
+      "bytes": 2901,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -139,12 +139,6 @@
       "modified_or_sanitized": true
     },
     {
-      "path": "profiles/optional/luci/seed.config",
-      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "sha256": "c2c44114a3af16efa94de580759b317ba54f24521745903b6de712b6bc518349",
-      "bytes": 22
-    },
-    {
       "path": "profiles/optional/relayd-fixes/package-patches.json",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "sha256": "fee0a33250623a6ff4c9b37d244fdc52efbc1f6a371ad14960ed7a796a9104cd",
@@ -165,22 +159,22 @@
     {
       "path": "profiles/optional/relayd-fixes/seed.config",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "sha256": "603ac7ea88172513aac4ca89ed5bc95eee9c2fe72c64a7b89463c51310555567",
-      "bytes": 24
+      "sha256": "8bd63d88a9eeab8b50af095b21906f4aca1dffbc88f046049466eb111bdbc0ca",
+      "bytes": 133
     },
     {
       "path": "profiles/upstream/seed.config",
-      "sha256": "db4a02ab90ecf1a216f815ee025de814a8040da0d962c0dcd684b5b14fbd157f",
-      "bytes": 142,
+      "sha256": "1e4203eb1320b99d9770198a92ee4f5bb764aa61e4a4c04b2757123c9a724638",
+      "bytes": 261,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/profiles/upstream/seed.config",
       "original_source_sha256": "db4a02ab90ecf1a216f815ee025de814a8040da0d962c0dcd684b5b14fbd157f",
-      "modified_or_sanitized": false
+      "modified_or_sanitized": true
     },
     {
       "path": "README.md",
-      "sha256": "6cbeccb1e34b6403326d07d5b010e799da63e6819e801f22fc5f7868c0d728a5",
-      "bytes": 4549,
+      "sha256": "587025f750ebdc581b9059c287047c2745b4446a973287c5c2528418cad22d60",
+      "bytes": 5541,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
