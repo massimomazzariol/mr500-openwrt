@@ -31,10 +31,10 @@ index b18e6904a9..4bc82d3a83 100644
  
  			partition@ff0000 {
 diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
-index 6d4ff1e25d..f2353a5ae9 100644
+index a3ac201fd1..35eb2c88b5 100644
 --- a/target/linux/ramips/image/mt7621.mk
 +++ b/target/linux/ramips/image/mt7621.mk
-@@ -3239,18 +3239,20 @@ TARGET_DEVICES += tplink_mr600-v2-eu
+@@ -3117,18 +3117,20 @@ TARGET_DEVICES += tplink_mr600-v2-eu
  define Device/tplink_mr500-v1-eu
    $(Device/dsa-migration)
    $(Device/tplink-v2)
@@ -60,7 +60,7 @@ index 6d4ff1e25d..f2353a5ae9 100644
  TARGET_DEVICES += tplink_mr500-v1-eu
  
 diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version b/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
-index af9dc9a815..b31e0e3c1c 100644
+index f3000b83c7..58f1b7642d 100644
 --- a/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
 +++ b/target/linux/ramips/mt7621/base-files/etc/board.d/05_compat-version
 @@ -8,6 +8,9 @@
@@ -72,9 +72,10 @@ index af9dc9a815..b31e0e3c1c 100644
 +		;;
  	ubnt,edgerouter-x|\
  	ubnt,edgerouter-x-sfp|\
- 	ubnt,unifi-6-lite|\
+ 	iptime,ax2002m|\
 diff --git a/tools/firmware-utils/patches/950-mr500-safe-layout.patch b/tools/firmware-utils/patches/950-mr500-safe-layout.patch
 new file mode 100644
+index 0000000000..1a84884ed1
 --- /dev/null
 +++ b/tools/firmware-utils/patches/950-mr500-safe-layout.patch
 @@ -0,0 +1,30 @@

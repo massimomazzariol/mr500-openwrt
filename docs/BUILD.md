@@ -1,20 +1,30 @@
-# Restore and build UPSTREAM
+# Prepare and build UPSTREAM
 
-Download `mr500-corresponding-source-20261009.tar.gz` and `SOURCES-SHA256SUMS` from the same experimental release as the images. Verify the bundle checksum, then:
+The source base is OpenWrt v25.12.6. `sources.lock.json` pins the OpenWrt commit, the feed commits, the relayd and firmware-utils versions and `SOURCE_DATE_EPOCH` (the release `version.date`).
 
 ```sh
-python3 scripts/prepare_source.py mr500-corresponding-source-20261009.tar.gz /absolute/new-build --sha256 HASH_FROM_SOURCES_SHA256SUMS
+python3 scripts/prepare_source.py /absolute/new-build
 python3 scripts/build.py --tree /absolute/new-build/openwrt --preflight-only
 python3 scripts/build.py --tree /absolute/new-build/openwrt --jobs 2
 ```
 
-Preparation restores the exact source snapshots, downloaded source archives, shared patches and frozen resolved UPSTREAM config. Feed indexing uses `update -i`, without fetching new revisions. `sources.lock.json` identifies the original commits. Source snapshots are release assets, not a redundant full source tree in this repository. Original copyright/license files are retained in the snapshots and archives.
+Add optional profiles with `--with`, once per profile:
 
-Host requirements: Linux x86-64, GNU build tools, GCC/G++, GNU make, Perl, Python 3.12 or newer (safe tar extraction), Git, patch/quilt, pkgconf, flex/bison, ncurses development files, zstd/xz/bzip2, OpenSSL development files and usual OpenWrt build prerequisites. Budget at least 16 GiB of build space plus source storage and several GiB RAM. These are external host dependencies, not redistributed toolchain binaries.
+```sh
+python3 scripts/prepare_source.py /absolute/new-build --with luci --with relayd-fixes
+```
 
-No OpenWrt rebuild was done during publication. Source restoration and patch/configuration preflight are rehearsed; a complete fresh recompilation and bit-for-bit equality are **not demonstrated**. Package-signing private keys are excluded and must be generated independently; the original public key is retained for provenance. Signing keys and host/tool versions can change rebuilt bytes. SOURCE_DATE_EPOCH is pinned. Kernel/module/toolchain sources and build recipes are included in the corresponding-source release bundle.
+Preparation clones OpenWrt at tag `v25.12.6` and checks that it resolves to the locked commit and version. It fetches the feeds pinned in `feeds.conf` and checks every feed commit. It applies `patches/upstream/*.patch`, then writes `.config` from `profiles/upstream/seed.config` plus the `seed.config` of each selected profile. A profile with `package-patches.json` copies hash-checked patches into that package, and stops if the package source version differs from the one the patches were written for. The output directory must be new. Nothing is compiled, and no device is accessed.
 
-Offline checks after obtaining images:
+`build.py` runs `make defconfig`, so the resolved configuration is generated on the build host. A resolved v25.12.6 configuration has not been frozen yet; it will be published with the first v25.12.6 build. `python3 scripts/test_prepare_source.py` runs the offline profile checks.
+
+Host requirements: Linux x86-64, GNU build tools, GCC/G++, GNU make, Perl, Python 3.12 or newer, Git, patch/quilt, pkgconf, flex/bison, ncurses development files, zstd/xz/bzip2, OpenSSL development files and usual OpenWrt build prerequisites. Budget at least 16 GiB of build space plus source storage and several GiB RAM. Clone this repository on Linux, or with `core.autocrlf=false`: `.gitattributes` keeps patches byte-exact, but older clones may still hold CRLF copies.
+
+Package-signing private keys are not part of this repository and must be generated independently. Signing keys and host/tool versions can change rebuilt bytes.
+
+## First release (OpenWrt main snapshot)
+
+The `experimental-upstream-20261009` images were built on OpenWrt `main` at `bb6df54d9d` (`r36880`). To restore that exact source from its corresponding-source bundle, check out the `archive/snapshot-r36880` branch and follow its `docs/BUILD.md`. The checksums of those images remain in this branch:
 
 ```sh
 sha256sum -c releases/upstream-20261009/SHA256SUMS

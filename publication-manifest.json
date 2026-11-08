@@ -4,24 +4,15 @@
   "history": "fresh reviewed export; historical Git objects not imported",
   "files": [
     {
+      "path": ".gitattributes",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "744077bce18dca8a8fa79759e581278bb3fc3ad2c1e0394e1a5ff2cd0272a137",
+      "bytes": 46
+    },
+    {
       "path": ".gitignore",
       "sha256": "fc6dcf0cde830862699733e7b35515e470dad96957344cd9511903e44fc1be8e",
       "bytes": 160,
-      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
-    },
-    {
-      "path": "LICENSE",
-      "sha256": "4a4d5c03ac503d809243f9d8de5517601e345990a85b6a59666c3f1caca02474",
-      "bytes": 18644,
-      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "original_source": "work/mr500-public-project/LICENSE",
-      "original_source_sha256": "4a4d5c03ac503d809243f9d8de5517601e345990a85b6a59666c3f1caca02474",
-      "modified_or_sanitized": false
-    },
-    {
-      "path": "README.md",
-      "sha256": "e4d39ac569a3be75db72456b4815d29a3e79c7e611d82ddaf419082cd5a9151f",
-      "bytes": 3104,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -80,14 +71,14 @@
     },
     {
       "path": "docs/BUILD.md",
-      "sha256": "b32766d197ba3715328793c87d58b55aa19614b349da3118be7911694f794d41",
-      "bytes": 2292,
+      "sha256": "b7dc8448bd51208832b7a63f740ffb61af255605cb40c0698181e4329d2bdcbd",
+      "bytes": 2838,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
       "path": "docs/CREDITS-AND-PROVENANCE.md",
-      "sha256": "5160c81c7d14fdb067f628d2ffcb7ab22c9c1e93c0c53e1bf3266f330751e025",
-      "bytes": 3412,
+      "sha256": "9fbfcee4f42f86d1c6f106f3c2aafc59386da03a0e40e6365b79946f96abac17",
+      "bytes": 3906,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -98,54 +89,84 @@
     },
     {
       "path": "docs/HARDWARE-AND-GEOMETRY.md",
-      "sha256": "1a273158188e42f611900a5466a9ddbc80de268b0944aa9fb290a2dd4e8acb85",
-      "bytes": 2608,
+      "sha256": "64372ab494765f7eafcf5c9c58ed560c5e52238108bb0f7596b28f944fee341a",
+      "bytes": 2586,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/docs/HARDWARE-AND-GEOMETRY.md",
       "original_source_sha256": "1a273158188e42f611900a5466a9ddbc80de268b0944aa9fb290a2dd4e8acb85",
-      "modified_or_sanitized": false
+      "modified_or_sanitized": true
     },
     {
       "path": "docs/LICENSING.md",
-      "sha256": "96716836c90eeb2a9ae7cf3c4e9ac1487235185e461b4eb17515caa231c97088",
-      "bytes": 3386,
+      "sha256": "beb0a15f45f662e7861d7d5b0aeaca56895e8d41630061681d7fbd8bf67ffb24",
+      "bytes": 3443,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
       "path": "feeds.conf",
-      "sha256": "ff4ddb657987c5cdc17f622ab2d030915c11745384ba229905ca3f64aa1d00b3",
+      "sha256": "037f68494e8cf059f7cb49dbce7e0f73a3da4db1e73b2b8b7477ff2d2676f40b",
       "bytes": 487,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/feeds.conf",
       "original_source_sha256": "ff4ddb657987c5cdc17f622ab2d030915c11745384ba229905ca3f64aa1d00b3",
+      "modified_or_sanitized": true
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "4a4d5c03ac503d809243f9d8de5517601e345990a85b6a59666c3f1caca02474",
+      "bytes": 18644,
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "original_source": "work/mr500-public-project/LICENSE",
+      "original_source_sha256": "4a4d5c03ac503d809243f9d8de5517601e345990a85b6a59666c3f1caca02474",
       "modified_or_sanitized": false
     },
     {
       "path": "patches/upstream/001-device-support.patch",
-      "sha256": "48e52aff4c7bfeb4722e7f55b7eedf726c65e65a9b4858fb0347fa8fcc3fee97",
+      "sha256": "353dea3a12afaf844b3bb4650498c9b02bad9d4e6858debaeaae4d371f7287b2",
       "bytes": 7646,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/patches/upstream/001-device-support.patch",
       "original_source_sha256": "48e52aff4c7bfeb4722e7f55b7eedf726c65e65a9b4858fb0347fa8fcc3fee97",
-      "modified_or_sanitized": false
+      "modified_or_sanitized": true
     },
     {
       "path": "patches/upstream/002-protected-layout.patch",
-      "sha256": "5f6f3647ad34be750eb1de3e7b970a71dcebe52c8f936f78e6ac55df51945b06",
-      "bytes": 3707,
+      "sha256": "167f2e15acb0aa61fca7a79135654a3591054d442c0d6f706cdd8369cdbe06eb",
+      "bytes": 3733,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/patches/upstream/002-protected-layout.patch",
       "original_source_sha256": "5f6f3647ad34be750eb1de3e7b970a71dcebe52c8f936f78e6ac55df51945b06",
-      "modified_or_sanitized": false
+      "modified_or_sanitized": true
     },
     {
-      "path": "profiles/upstream/resolved.diffconfig",
-      "sha256": "d189ac4f5d00d4badd51c49d0c10f54b95decc537ecb200efcbdb4e361d0135f",
-      "bytes": 109,
+      "path": "profiles/optional/luci/seed.config",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "original_source": "work/mr500-public-project/profiles/upstream/resolved.diffconfig",
-      "original_source_sha256": "d189ac4f5d00d4badd51c49d0c10f54b95decc537ecb200efcbdb4e361d0135f",
-      "modified_or_sanitized": false
+      "sha256": "c2c44114a3af16efa94de580759b317ba54f24521745903b6de712b6bc518349",
+      "bytes": 22
+    },
+    {
+      "path": "profiles/optional/relayd-fixes/package-patches.json",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "fee0a33250623a6ff4c9b37d244fdc52efbc1f6a371ad14960ed7a796a9104cd",
+      "bytes": 898
+    },
+    {
+      "path": "profiles/optional/relayd-fixes/patches/100-directed-arp-host-expiry.patch",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "70b3d4c00c8983e8a0e36fd049b04001ffe085e8b481fce12ff0e697c54ee532",
+      "bytes": 1814
+    },
+    {
+      "path": "profiles/optional/relayd-fixes/patches/110-dhcp-unicast-chaddr.patch",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "7cd81147bafbb2b0542a0987a27fa35fe4de4aaadbce2ea77cee15cbe2323281",
+      "bytes": 1460
+    },
+    {
+      "path": "profiles/optional/relayd-fixes/seed.config",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "603ac7ea88172513aac4ca89ed5bc95eee9c2fe72c64a7b89463c51310555567",
+      "bytes": 24
     },
     {
       "path": "profiles/upstream/seed.config",
@@ -157,18 +178,9 @@
       "modified_or_sanitized": false
     },
     {
-      "path": "releases/upstream-20261009/SHA256SUMS",
-      "sha256": "1215c73ced5d55c890dfc7d2903552e6d4121a13942212695fee4c5843f177ba",
-      "bytes": 387,
-      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "original_source": "work/artifacts-mr500-upstream-20261009/SHA256SUMS",
-      "original_source_sha256": "1215c73ced5d55c890dfc7d2903552e6d4121a13942212695fee4c5843f177ba",
-      "modified_or_sanitized": false
-    },
-    {
-      "path": "releases/upstream-20261009/SOURCES-SHA256SUMS",
-      "sha256": "098a077ceef4b4cfd978eea6dfff494d3d27da467a29c1a7cdacab245328939b",
-      "bytes": 198,
+      "path": "README.md",
+      "sha256": "6cbeccb1e34b6403326d07d5b010e799da63e6819e801f22fc5f7868c0d728a5",
+      "bytes": 4549,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -253,9 +265,24 @@
       "modified_or_sanitized": false
     },
     {
+      "path": "releases/upstream-20261009/SHA256SUMS",
+      "sha256": "1215c73ced5d55c890dfc7d2903552e6d4121a13942212695fee4c5843f177ba",
+      "bytes": 387,
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "original_source": "work/artifacts-mr500-upstream-20261009/SHA256SUMS",
+      "original_source_sha256": "1215c73ced5d55c890dfc7d2903552e6d4121a13942212695fee4c5843f177ba",
+      "modified_or_sanitized": false
+    },
+    {
       "path": "releases/upstream-20261009/source-bundle-manifest.json",
       "sha256": "8a7be8eaa446d4a7de6f80e9d6ca8ffef722a94536dbdc4cddb9a9a404fd2b18",
       "bytes": 12773,
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
+    },
+    {
+      "path": "releases/upstream-20261009/SOURCES-SHA256SUMS",
+      "sha256": "098a077ceef4b4cfd978eea6dfff494d3d27da467a29c1a7cdacab245328939b",
+      "bytes": 198,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -269,15 +296,21 @@
     },
     {
       "path": "scripts/build.py",
-      "sha256": "e1c5b3c8dd2e3a7e91953fc9d8cdf2402b05adcb596e348fbb946a195ab7f022",
-      "bytes": 1397,
+      "sha256": "cc900e554c2083ddf2924a765dfc8922852ae105b7be80dfb72a37798fea989f",
+      "bytes": 1417,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
       "path": "scripts/prepare_source.py",
-      "sha256": "f1fd9091f06021c25b8fc4b6c1618f852f49aae28c81b6a084b3240c15fa40d0",
-      "bytes": 1849,
+      "sha256": "c882c7a11b3899c859115f6d372f95d9e7292848b357eb119844fad5ce250f76",
+      "bytes": 3894,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
+    },
+    {
+      "path": "scripts/test_prepare_source.py",
+      "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
+      "sha256": "1104e5a077f050616a3fb05be45d75b756b66153bc029d78ffa113dd4ccfdfef",
+      "bytes": 2111
     },
     {
       "path": "scripts/test_validator.py",
@@ -299,12 +332,12 @@
     },
     {
       "path": "sources.lock.json",
-      "sha256": "5fb03935d7abde0d6e2f05967a5af584c74ba5ef8ea82f5555ffc74778878837",
-      "bytes": 674,
+      "sha256": "10a51af6ab59d5296bf0299b49ec45086c9d6dea92516d2c797d765c3c501c91",
+      "bytes": 665,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/sources.lock.json",
       "original_source_sha256": "5fb03935d7abde0d6e2f05967a5af584c74ba5ef8ea82f5555ffc74778878837",
-      "modified_or_sanitized": false
+      "modified_or_sanitized": true
     }
   ]
 }

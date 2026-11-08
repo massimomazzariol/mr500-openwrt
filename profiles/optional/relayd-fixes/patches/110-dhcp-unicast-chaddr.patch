@@ -1,0 +1,47 @@
+From 0a66b106f145c69a140e1f2ffbb934d1bb9b7f8c Mon Sep 17 00:00:00 2001
+From: Massimo Mazzariol <mazzariol.massimo@gmail.com>
+Date: Sun, 30 Aug 2026 11:21:17 +0200
+Subject: [PATCH] dhcp: unicast server replies to client chaddr
+
+Signed-off-by: Massimo Mazzariol <mazzariol.massimo@gmail.com>
+---
+ dhcp.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/dhcp.c b/dhcp.c
+index b685086..c98e522 100644
+--- a/dhcp.c
++++ b/dhcp.c
+@@ -55,6 +55,19 @@ struct dhcp_header {
+ 	uint8_t option_data[];
+ } __packed;
+ 
++static bool
++dhcp_reply_has_unicast_chaddr(const struct dhcp_header *dhcp)
++{
++	static const uint8_t zero_mac[ETH_ALEN];
++
++	return dhcp->op == 2 &&
++	       dhcp->htype == ARPHRD_ETHER &&
++	       dhcp->hlen == ETH_ALEN &&
++	       dhcp->yiaddr.s_addr != INADDR_ANY &&
++	       memcmp(dhcp->chaddr, zero_mac, ETH_ALEN) &&
++	       !(dhcp->chaddr[0] & 1);
++}
++
+ static uint16_t
+ chksum(uint16_t sum, const uint8_t *data, uint16_t len)
+ {
+@@ -166,6 +179,12 @@ bool relayd_handle_dhcp_packet(struct relayd_interface *rif, void *data, int len
+ 
+ 	dhcp->flags |= htons(DHCP_FLAG_BROADCAST);
+ 
++	if (udp->source == htons(67) &&
++	    udp->dest == htons(68) &&
++	    !memcmp(pkt->eth.ether_dhost, "\xff\xff\xff\xff\xff\xff", ETH_ALEN) &&
++	    dhcp_reply_has_unicast_chaddr(dhcp))
++		memcpy(pkt->eth.ether_dhost, dhcp->chaddr, ETH_ALEN);
++
+ 	udp->check = 0;
+ 	sum = udplen + IPPROTO_UDP;
+ 	sum = chksum(sum, (void *) &pkt->iph.saddr, 8);

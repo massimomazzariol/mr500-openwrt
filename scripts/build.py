@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-only
-"""Build only the public UPSTREAM profile in an explicitly prepared source tree."""
+"""Build a source tree prepared by prepare_source.py (UPSTREAM plus any selected optional profiles)."""
 import argparse,json,pathlib,subprocess,os
 D=pathlib.Path(__file__).resolve().parents[1]
 a=argparse.ArgumentParser();a.add_argument('--tree',type=pathlib.Path,required=True);a.add_argument('--jobs',type=int,default=2);a.add_argument('--preflight-only',action='store_true');args=a.parse_args();tree=args.tree.resolve()

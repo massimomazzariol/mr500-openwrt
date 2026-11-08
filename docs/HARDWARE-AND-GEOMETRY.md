@@ -9,18 +9,18 @@ OpenWrt target. The default modem USB mode is not changed automatically.
 
 | Region | Half-open physical range | Policy |
 |---|---|---|
-| U-Boot | 0x000000–0x020000 | read-only |
-| firmware | 0x020000–0xfa0000 | sole firmware/rootfs/overlay span |
-| dualconfig | 0xfa0000–0xfb0000 | read-only, reserved on both profiles |
-| ispconfig | 0xfb0000–0xfc0000 | read-only, reserved on both profiles |
-| romfile / identity | 0xfc0000–0xfd0000 | read-only |
-| config | 0xfd0000–0xfe0000 | read-only |
-| filler / vendor data | 0xfe0000–0xff0000 | read-only |
-| radio calibration | 0xff0000–0x1000000 | read-only |
+| U-Boot | 0x000000-0x020000 | read-only |
+| firmware | 0x020000-0xfa0000 | sole firmware/rootfs/overlay span |
+| dualconfig | 0xfa0000-0xfb0000 | read-only, reserved on both profiles |
+| ispconfig | 0xfb0000-0xfc0000 | read-only, reserved on both profiles |
+| romfile / identity | 0xfc0000-0xfd0000 | read-only |
+| config | 0xfd0000-0xfe0000 | read-only |
+| filler / vendor data | 0xfe0000-0xff0000 | read-only |
+| radio calibration | 0xff0000-0x1000000 | read-only |
 
 Firmware length is `0xf80000` = 16,252,928 bytes = 15,872 KiB (15.5 MiB).
-At 64-KiB erase geometry, sectors 2–249 belong to firmware; sectors 0–1 and
-250–255 remain protected. Stock 1.11 reserves dualconfig/ispconfig; stock 1.10
+At 64-KiB erase geometry, sectors 2-249 belong to firmware; sectors 0-1 and
+250-255 remain protected. Stock 1.11 reserves dualconfig/ispconfig; stock 1.10
 allows its rootfs to extend over those addresses. Conservatively reserve them
 for both. A stock 1.10 backup/rollback still needs the original full-region data,
 including bytes omitted from the new usable firmware span.

@@ -242,10 +242,10 @@ index 0000000000..b18e6904a9
 +	};
 +};
 diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
-index d2ba00f85a..6d4ff1e25d 100644
+index 1b6360b9d6..a3ac201fd1 100644
 --- a/target/linux/ramips/image/mt7621.mk
 +++ b/target/linux/ramips/image/mt7621.mk
-@@ -3236,6 +3236,24 @@ define Device/tplink_mr600-v2-eu
+@@ -3114,6 +3114,24 @@ define Device/tplink_mr600-v2-eu
  endef
  TARGET_DEVICES += tplink_mr600-v2-eu
  
@@ -271,10 +271,10 @@ index d2ba00f85a..6d4ff1e25d 100644
    $(Device/dsa-migration)
    $(Device/tplink-safeloader)
 diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds b/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
-index de807dd2e9..091428368f 100644
+index ee89f1a5cd..f7aa0cb3f5 100644
 --- a/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 +++ b/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
-@@ -240,6 +240,11 @@ tplink,re350-v1)
+@@ -235,6 +235,11 @@ tplink,re350-v1)
  	ucidef_set_led_netdev "eth_act" "LAN act" "green:eth_act" "lan" "tx rx"
  	ucidef_set_led_netdev "eth_link" "LAN link" "green:eth_link" "lan" "link"
  	;;
@@ -287,10 +287,10 @@ index de807dd2e9..091428368f 100644
  	ucidef_set_led_netdev "lan" "LAN" "white:lan" "br-lan"
  	ucidef_set_led_netdev "wan" "WAN" "white:wan" "wan"
 diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/02_network b/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
-index b180900c8e..05a9e0646d 100644
+index dc5ddadcb5..38d8cbb246 100644
 --- a/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
 +++ b/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
-@@ -39,6 +39,11 @@ ramips_setup_interfaces()
+@@ -37,6 +37,11 @@ ramips_setup_interfaces()
  	zyxel,wsm20)
  		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3" "wan"
  		;;

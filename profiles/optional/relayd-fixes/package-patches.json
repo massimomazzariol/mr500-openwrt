@@ -1,0 +1,22 @@
+{
+  "package": "package/network/services/relayd",
+  "source_version": "708a76faa7a1f2f62af83303efea0eb760d99c62",
+  "patches": [
+    {
+      "file": "100-directed-arp-host-expiry.patch",
+      "name": "Directed ARP host expiry",
+      "commit": "79ba7f401471712a0032aff131ec2b7e13f244b2",
+      "upstream": "https://github.com/openwrt/relayd/pull/2",
+      "issue": "https://github.com/openwrt/openwrt/issues/24446",
+      "sha256": "70b3d4c00c8983e8a0e36fd049b04001ffe085e8b481fce12ff0e697c54ee532"
+    },
+    {
+      "file": "110-dhcp-unicast-chaddr.patch",
+      "name": "DHCP unicast replies to client chaddr",
+      "commit": "0a66b106f145c69a140e1f2ffbb934d1bb9b7f8c",
+      "upstream": "https://github.com/openwrt/relayd/pull/1",
+      "issue": "https://github.com/openwrt/openwrt/issues/24446",
+      "sha256": "7cd81147bafbb2b0542a0987a27fa35fe4de4aaadbce2ea77cee15cbe2323281"
+    }
+  ]
+}
