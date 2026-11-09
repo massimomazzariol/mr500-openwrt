@@ -302,10 +302,10 @@ index dc5ddadcb5..e7b225254d 100644
  		;;
 diff --git a/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led b/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led
 new file mode 100644
-index 0000000000..890437f41b
+index 0000000000..b31820c265
 --- /dev/null
 +++ b/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,28 @@
 +#!/bin/sh
 +
 +# The LTE netdev name depends on the modem USB mode (usb0 or eth1),
@@ -320,6 +320,9 @@ index 0000000000..890437f41b
 +led=/sys/class/leds/white:4g
 +[ -d "$led" ] || exit 0
 +
++# A 4G LED configured in LuCI (System > LED Configuration) takes precedence.
++uci -q show system | grep -q "\.sysfs='white:4g'$" && exit 0
++
 +case "$ACTION" in
 +ifup)
 +	[ -n "$DEVICE" ] || exit 0
@@ -333,26 +336,56 @@ index 0000000000..890437f41b
 +esac
 diff --git a/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan b/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan
 new file mode 100644
-index 0000000000..6d7a9af80b
+index 0000000000..3c78442f1f
 --- /dev/null
 +++ b/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,50 @@
 +. /lib/functions.sh
 +
-+# Add the LTE interface to the wan firewall zone once, without duplicates.
++# Put the LTE interface in the wan zone, unless a zone already has it;
++# there, drop duplicates left by images up to 20261009.
 +mr500_wwan_zone() {
 +	local name networks
 +
 +	config_get name "$1" name
-+	[ "$name" = "wan" ] || return 0
 +	config_get networks "$1" network
-+	list_contains networks wwan0 || uci add_list firewall."$1".network='wwan0'
++	[ "$name" = "wan" ] && wan_zone="$1"
++	list_contains networks wwan0 || return 0
++	wwan_zone="$1"
++	uci -q del_list firewall."$1".network='wwan0'
++	uci add_list firewall."$1".network='wwan0'
++}
++
++# Images up to 20261009 generated a 4G LED on a "wwan0" netdev, which
++# does not exist on this modem. The 4G LED now follows wwan0 via hotplug.
++mr500_drop_led() {
++	local sysfs dev
++
++	config_get sysfs "$1" sysfs
++	config_get dev "$1" dev
++	[ "$sysfs" = "white:4g" ] && [ "$dev" = "wwan0" ] && uci -q delete system."$1"
 +}
 +
 +case "$(board_name)" in
 +tplink,mr500-v1-eu)
++	# Migrate the DHCP-on-eth1 LTE setup of images up to 20261009 to proto ncm.
++	if [ "$(uci -q get network.wwan0.proto)" = "dhcp" ] &&
++	   [ "$(uci -q get network.wwan0.device)" = "eth1" ]; then
++		uci -q batch <<-EOT
++			set network.wwan0.proto='ncm'
++			set network.wwan0.device='/dev/ttyUSB0'
++			set network.wwan0.pdptype='ipv4'
++		EOT
++		[ "$(uci -q get network.wwan06.device)" = "eth1" ] &&
++			uci -q delete network.wwan06
++	fi
++
++	config_load system
++	config_foreach mr500_drop_led led
 +	config_load firewall
 +	config_foreach mr500_wwan_zone zone
++	[ -z "$wwan_zone" ] && [ -n "$wan_zone" ] &&
++		uci add_list firewall."$wan_zone".network='wwan0'
 +	;;
 +esac
 +

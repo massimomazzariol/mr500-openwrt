@@ -32,7 +32,7 @@ Differences from the official images:
 
 The Fibocom FG621-EA is driven by OpenWrt's `ncm` protocol (`comgt-ncm`), with the Fibocom profile added upstream in `71118d6522` and tested on the ASUS 4G-AX56, which has the same modem. The default `wwan0` interface uses the AT port `/dev/ttyUSB0` and is in the `wan` firewall zone. `ncm` finds the data netdev from the USB device, so it works whether the modem exposes it as `usb0` (NCM) or `eth1` (RNDIS).
 
-In LuCI, *Network > Interfaces > wwan0* sets the SIM PIN, APN, PDP type (IPv4, IPv6 or both), authentication, and the network mode (LTE, UMTS or automatic). The 4G LED follows the `wwan0` link.
+In LuCI, *Network > Interfaces > wwan0* sets the SIM PIN, APN, PDP type (IPv4, IPv6 or both), authentication, and the network mode (LTE, UMTS or automatic). The 4G LED follows the `wwan0` link, unless a 4G LED is configured in *System > LED Configuration*. A sysupgrade that keeps settings from the `20261009` images moves their DHCP-on-`eth1` `wwan0` to `ncm` and drops their stale 4G LED entry; customized settings are left alone.
 
 Not covered by official LuCI: signal strength, operator and SIM status, SMS and band locking. The three signal LEDs are not driven. None of this is verified on hardware yet; see the [hardware checklist](docs/HARDWARE-CHECKLIST.md). On connect, `ncm` writes the PDP context (`AT+CGDCONT`) and starts the data call (`AT+GTRNDIS`); it does not change the modem USB mode or firmware.
 

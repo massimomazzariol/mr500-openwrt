@@ -77,8 +77,8 @@
     },
     {
       "path": "docs/CREDITS-AND-PROVENANCE.md",
-      "sha256": "c67cec7a3c529946910d287a338fde60a2e9a2d15a74fd15dc1cde2534a1b65c",
-      "bytes": 4408,
+      "sha256": "1d4bcfdda08c17d7d1967b338df1f4d5ce65b74e644cf76ca111330115bc644c",
+      "bytes": 4565,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -99,8 +99,8 @@
     {
       "path": "docs/HARDWARE-CHECKLIST.md",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "sha256": "0a971163b128f096c39a9937761c66d9feb2c0f81e14b5c6cff02635cd460b71",
-      "bytes": 2215
+      "sha256": "6849dffb3fc6a712bba1b6da7075fefea6d49a723b3a9efc0a90cad74a14325a",
+      "bytes": 2366
     },
     {
       "path": "docs/LICENSING.md",
@@ -128,8 +128,8 @@
     },
     {
       "path": "patches/upstream/001-device-support.patch",
-      "sha256": "a140f393ef182b929ae2cc6468c36ea69e48bb56a27c7ff6030b48de90569923",
-      "bytes": 9197,
+      "sha256": "1e445cbb744eb190d349e596514464fd2c468cd1859f0b0e7932f28b89ece207",
+      "bytes": 10396,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
       "original_source": "work/mr500-public-project/patches/upstream/001-device-support.patch",
       "original_source_sha256": "48e52aff4c7bfeb4722e7f55b7eedf726c65e65a9b4858fb0347fa8fcc3fee97",
@@ -179,8 +179,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "409a410f1b582156735ecc284ae6e56be697aa10f2af8dde5772b40501898410",
-      "bytes": 6583,
+      "sha256": "074c78e620c1e6f3d20852875fb3192e1b6cc5337b2cab48ac7414f146d2de2a",
+      "bytes": 6822,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
@@ -309,8 +309,8 @@
     {
       "path": "scripts/test_board_files.py",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "sha256": "af81d2e159f8f9c152f981760afb315ba8b89aee2470973eccd290b891df18bb",
-      "bytes": 4093
+      "sha256": "e34ca4104b8364421a241b3a31430e5b5027d7dc58d4c7e2964cee6d8fb5707b",
+      "bytes": 7668
     },
     {
       "path": "scripts/test_prepare_source.py",

@@ -25,6 +25,7 @@ Record the stock modem firmware revision (`AT+CGMR`) as well. Do not change the 
 6. The network mode set in LuCI (LTE, UMTS, automatic) is accepted without `SETMODE_FAILED`.
 7. The 4G LED turns on with the `wwan0` link and off when the interface is stopped.
 8. `uci show firewall` lists `wwan0` once in the `wan` zone, also after a reboot and after a sysupgrade that keeps settings.
+9. After a kept-settings sysupgrade from a `20261009` image, `wwan0` uses `proto ncm` on `/dev/ttyUSB0`, `wwan06` and the old `led_4g` entry are gone.
 
 ## Board
 
