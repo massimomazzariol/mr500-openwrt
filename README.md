@@ -20,13 +20,21 @@ The first experimental release (`experimental-upstream-20261009`) was built on a
 
 ## Package set
 
-UPSTREAM follows the official OpenWrt v25.12.6 release images for ramips/mt7621: the target default packages, the MR500 device packages, and the LuCI web interface with HTTPS (`luci` and `luci-ssl`, which pull `luci-light`, `luci-app-firewall`, `luci-app-package-manager`, `uhttpd` and `px5g-mbedtls`). The official MR600 v2 EU image, the template of this device, has a 8,323,635-byte sysupgrade with this set; the MR500 limit is 16,252,928 bytes.
+UPSTREAM follows the official OpenWrt v25.12.6 release images for ramips/mt7621: the target default packages, the MR500 device packages, and the LuCI web interface with HTTPS (`luci` and `luci-ssl`, which pull `luci-light`, `luci-app-firewall`, `luci-app-package-manager`, `uhttpd` and `px5g-mbedtls`), plus `luci-proto-ncm` for the LTE modem. The official MR600 v2 EU image, the template of this device, has a 8,323,635-byte sysupgrade with this set; the MR500 limit is 16,252,928 bytes.
 
 Differences from the official images:
 
 - No attended sysupgrade (`luci-app-attendedsysupgrade`, `owut`): the official upgrade server does not know this device, so it cannot build images for it.
 - Packages are signed with a key generated on the build host. The image also trusts the official 25.12 key (`openwrt-keyring`), so userspace packages from `downloads.openwrt.org/releases/25.12.6` install with `apk`. Kernel modules must come from the same build, because the kernel differs from the official one.
 - Buildbot-only outputs (all kmods, SDK, ImageBuilder, debug info) are not built.
+
+## LTE modem
+
+The Fibocom FG621-EA is driven by OpenWrt's `ncm` protocol (`comgt-ncm`), with the Fibocom profile added upstream in `71118d6522` and tested on the ASUS 4G-AX56, which has the same modem. The default `wwan0` interface uses the AT port `/dev/ttyUSB0` and is in the `wan` firewall zone. `ncm` finds the data netdev from the USB device, so it works whether the modem exposes it as `usb0` (NCM) or `eth1` (RNDIS).
+
+In LuCI, *Network > Interfaces > wwan0* sets the SIM PIN, APN, PDP type (IPv4, IPv6 or both), authentication, and the network mode (LTE, UMTS or automatic). The 4G LED follows the `wwan0` link.
+
+Not covered by official LuCI: signal strength, operator and SIM status, SMS and band locking. The three signal LEDs are not driven. None of this is verified on hardware yet; see the [hardware checklist](docs/HARDWARE-CHECKLIST.md). On connect, `ncm` writes the PDP context (`AT+CGDCONT`) and starts the data call (`AT+GTRNDIS`); it does not change the modem USB mode or firmware.
 
 ## Optional profiles
 

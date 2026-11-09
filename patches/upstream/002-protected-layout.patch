@@ -31,7 +31,7 @@ index b18e6904a9..4bc82d3a83 100644
  
  			partition@ff0000 {
 diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
-index a3ac201fd1..35eb2c88b5 100644
+index cd29574d30..0f2c31b8f3 100644
 --- a/target/linux/ramips/image/mt7621.mk
 +++ b/target/linux/ramips/image/mt7621.mk
 @@ -3117,18 +3117,20 @@ TARGET_DEVICES += tplink_mr600-v2-eu
@@ -46,7 +46,7 @@ index a3ac201fd1..35eb2c88b5 100644
 +  TPLINK_FLASHLAYOUT := 16Mmr500safe
    DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7663-firmware-ap \
  	kmod-usb3 kmod-usb-net-rndis kmod-usb-net-cdc-ncm \
- 	kmod-usb-serial-option -uboot-envtools
+ 	kmod-usb-serial-option comgt-ncm -uboot-envtools
 -  IMAGE/factory.bin := tplink-v2-image -e -a 0x10000
 +  IMAGE/factory.bin := tplink-v2-image -e -a 0x10000 | check-size
    IMAGE/sysupgrade.bin := tplink-v2-image -s -e -a 0x10000 | check-size | \

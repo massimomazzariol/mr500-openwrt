@@ -242,7 +242,7 @@ index 0000000000..b18e6904a9
 +	};
 +};
 diff --git a/target/linux/ramips/image/mt7621.mk b/target/linux/ramips/image/mt7621.mk
-index 1b6360b9d6..a3ac201fd1 100644
+index 1b6360b9d6..cd29574d30 100644
 --- a/target/linux/ramips/image/mt7621.mk
 +++ b/target/linux/ramips/image/mt7621.mk
 @@ -3114,6 +3114,24 @@ define Device/tplink_mr600-v2-eu
@@ -257,7 +257,7 @@ index 1b6360b9d6..a3ac201fd1 100644
 +  TPLINK_FLASHLAYOUT := 16Mltq
 +  DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7663-firmware-ap \
 +	kmod-usb3 kmod-usb-net-rndis kmod-usb-net-cdc-ncm \
-+	kmod-usb-serial-option -uboot-envtools
++	kmod-usb-serial-option comgt-ncm -uboot-envtools
 +  IMAGE/factory.bin := tplink-v2-image -e -a 0x10000
 +  IMAGE/sysupgrade.bin := tplink-v2-image -s -e -a 0x10000 | check-size | \
 +	append-metadata
@@ -271,34 +271,89 @@ index 1b6360b9d6..a3ac201fd1 100644
    $(Device/dsa-migration)
    $(Device/tplink-safeloader)
 diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds b/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
-index ee89f1a5cd..f7aa0cb3f5 100644
+index ee89f1a5cd..47bea24943 100644
 --- a/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
 +++ b/target/linux/ramips/mt7621/base-files/etc/board.d/01_leds
-@@ -235,6 +235,11 @@ tplink,re350-v1)
+@@ -235,6 +235,10 @@ tplink,re350-v1)
  	ucidef_set_led_netdev "eth_act" "LAN act" "green:eth_act" "lan" "tx rx"
  	ucidef_set_led_netdev "eth_link" "LAN link" "green:eth_link" "lan" "link"
  	;;
 +tplink,mr500-v1-eu)
 +	ucidef_set_led_netdev "lan" "LAN" "white:lan" "br-lan"
 +	ucidef_set_led_netdev "wan" "WAN" "white:wan" "wan"
-+	ucidef_set_led_netdev "4g" "4G" "white:4g" "wwan0"
 +	;;
  tplink,mr600-v2-eu)
  	ucidef_set_led_netdev "lan" "LAN" "white:lan" "br-lan"
  	ucidef_set_led_netdev "wan" "WAN" "white:wan" "wan"
 diff --git a/target/linux/ramips/mt7621/base-files/etc/board.d/02_network b/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
-index dc5ddadcb5..38d8cbb246 100644
+index dc5ddadcb5..e7b225254d 100644
 --- a/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
 +++ b/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
-@@ -37,6 +37,11 @@ ramips_setup_interfaces()
+@@ -37,6 +37,10 @@ ramips_setup_interfaces()
  	zyxel,wsm20)
  		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3" "wan"
  		;;
 +	tplink,mr500-v1-eu)
 +		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3" "wan"
-+		ucidef_set_interface "wwan0" device "eth1" protocol "dhcp"
-+		uci add_list firewall.@zone[1].network='wwan0'
++		ucidef_set_interface "wwan0" device "/dev/ttyUSB0" protocol "ncm"
 +		;;
  	arcadyan,we420223-99)
  		ucidef_set_interface_lan "swp0 swp1"
  		;;
+diff --git a/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led b/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led
+new file mode 100644
+index 0000000000..890437f41b
+--- /dev/null
++++ b/target/linux/ramips/mt7621/base-files/etc/hotplug.d/iface/10-tplink-mr500-4g-led
+@@ -0,0 +1,25 @@
++#!/bin/sh
++
++# The LTE netdev name depends on the modem USB mode (usb0 or eth1),
++# so follow the device netifd reports for wwan0.
++
++[ "$INTERFACE" = "wwan0" ] || exit 0
++
++. /lib/functions.sh
++
++[ "$(board_name)" = "tplink,mr500-v1-eu" ] || exit 0
++
++led=/sys/class/leds/white:4g
++[ -d "$led" ] || exit 0
++
++case "$ACTION" in
++ifup)
++	[ -n "$DEVICE" ] || exit 0
++	echo netdev > "$led/trigger"
++	echo "$DEVICE" > "$led/device_name"
++	echo 1 > "$led/link"
++	;;
++ifdown)
++	echo none > "$led/trigger"
++	;;
++esac
+diff --git a/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan b/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan
+new file mode 100644
+index 0000000000..6d7a9af80b
+--- /dev/null
++++ b/target/linux/ramips/mt7621/base-files/etc/uci-defaults/10_tplink_mr500_wwan
+@@ -0,0 +1,20 @@
++. /lib/functions.sh
++
++# Add the LTE interface to the wan firewall zone once, without duplicates.
++mr500_wwan_zone() {
++	local name networks
++
++	config_get name "$1" name
++	[ "$name" = "wan" ] || return 0
++	config_get networks "$1" network
++	list_contains networks wwan0 || uci add_list firewall."$1".network='wwan0'
++}
++
++case "$(board_name)" in
++tplink,mr500-v1-eu)
++	config_load firewall
++	config_foreach mr500_wwan_zone zone
++	;;
++esac
++
++exit 0
