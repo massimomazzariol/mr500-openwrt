@@ -99,8 +99,8 @@
     {
       "path": "docs/HARDWARE-CHECKLIST.md",
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data",
-      "sha256": "6849dffb3fc6a712bba1b6da7075fefea6d49a723b3a9efc0a90cad74a14325a",
-      "bytes": 2366
+      "sha256": "30b9b201d0fc75f6e66c1242d25fc8920cbd284568267a5f4ba0682e08f6e4df",
+      "bytes": 3561
     },
     {
       "path": "docs/LICENSING.md",

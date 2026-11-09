@@ -15,6 +15,17 @@ AT+GTRNDIS?
 
 Record the stock modem firmware revision (`AT+CGMR`) as well. Do not change the USB mode while qualifying the device.
 
+The stock firmware itself forces USB mode 36 (NCM) at every boot and clears PDP context 1 before each connection, using context 2 for data. Returning to stock therefore restores both; the saved values are a cross-check.
+
+## RAM-only test before installing
+
+Run every check below from the initramfs image first. It runs from RAM and writes nothing to the NOR flash; a power cycle returns to stock. It needs the serial console (3.3 V UART, 115200 8N1) and a TFTP server, as documented by thezedt.
+
+1. Interrupt U-Boot with `4` or `tpl`, load `openwrt-...-tplink_mr500-v1-eu-initramfs-kernel.bin` with `tftpboot`, then `bootm`.
+2. Before anything else, copy every partition of this router to the PC over SSH (`cat /proc/mtd`, then each `/dev/mtdN`). The `romfile`, `config` and `radio` partitions hold this unit's MAC addresses, identity and Wi-Fi calibration; no other dump can replace them. Keep the copies off the router and record their SHA-256.
+3. Go through the modem, SIM and board checks below. Only when they pass, install the sysupgrade image from the initramfs system.
+4. If a check fails, power cycle: the router boots stock again. Report the failing check with `logread` and `dmesg`.
+
 ## Modem and SIM
 
 1. `ls /dev/ttyUSB*` shows the option ports. `/dev/ttyUSB0` answers `AT` with `OK`. If another port answers instead, set it as the modem device of `wwan0` in LuCI and report it.
