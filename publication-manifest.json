@@ -179,8 +179,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "074c78e620c1e6f3d20852875fb3192e1b6cc5337b2cab48ac7414f146d2de2a",
-      "bytes": 6822,
+      "sha256": "09e6dbb72dbfa9bc2791bbfce47d634bce87b3b732b909eec1590850bfe0e425",
+      "bytes": 6983,
       "clearance": "Reviewed project-owned code/documentation/metadata or unchanged licensed third-party source; no OEM binary data"
     },
     {
